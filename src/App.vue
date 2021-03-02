@@ -23,6 +23,10 @@ html {
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 
+body {
+  background: #bbb;
+}
+
 a {
   text-decoration: none;
 }
