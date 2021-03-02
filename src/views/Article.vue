@@ -7,6 +7,7 @@
       <!-- Image -->
     </div>
     <div class="content">
+      <h2>Sub-Title</h2>
       <p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit natus
         quasi sequi, obcaecati in deserunt quo ducimus incidunt impedit
@@ -15,6 +16,7 @@
         possimus voluptate itaque praesentium rem repellendus ab nemo illo,
         nihil numquam? Dolorum quo facere tenetur numquam.
       </p>
+      <h2>Sub-Title</h2>
       <p>
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius velit
         dolorum aliquam optio voluptates laboriosam officiis voluptate, nisi
@@ -23,6 +25,7 @@
         nam quos ex, libero, tenetur possimus porro vero nisi sint? Inventore,
         et.
       </p>
+      <h2>Sub-Title</h2>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dolor labore
         id illum, perspiciatis velit assumenda molestiae ducimus, eaque mollitia
@@ -33,8 +36,19 @@
         soluta.
       </p>
     </div>
+    <create-comment />
   </div>
 </template>
+
+<script>
+import CreateComment from '../components/layout/CreateComment.vue';
+
+export default {
+  components: {
+    CreateComment,
+  },
+};
+</script>
 
 <style scoped>
 .article {
@@ -54,7 +68,8 @@
   line-height: 2;
   background: white;
   box-shadow: 0 2px 8px 4px rgba(0, 0, 0, 0.4);
-  padding: 2rem;
+  padding: 1rem 2rem;
+  margin-top: 2rem;
 }
 .sub-header {
   margin: 0;
