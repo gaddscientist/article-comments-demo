@@ -2,8 +2,8 @@
   <div class="article">
     <div class="info">
       <h1 class="title">Article Title</h1>
-      <p><span class="sub-header">Author: </span> Bryan Hilldrup</p>
-      <p><span class="sub-header">Date: </span> 09.18.2020</p>
+      <p class="sub-header"><span>Author: </span> Bryan Hilldrup</p>
+      <p class="sub-header"><span>Date: </span> 09.18.2020</p>
       <!-- Image -->
     </div>
     <div class="content">
@@ -36,16 +36,19 @@
         soluta.
       </p>
     </div>
-    <create-comment />
   </div>
+  <create-comment />
+  <the-comments />
 </template>
 
 <script>
 import CreateComment from '../components/layout/CreateComment.vue';
+import TheComments from '../components/layout/TheComments.vue';
 
 export default {
   components: {
     CreateComment,
+    TheComments,
   },
 };
 </script>
@@ -53,27 +56,31 @@ export default {
 <style scoped>
 .article {
   margin: 2rem auto;
+  padding: 0 1rem;
   width: 90%;
   max-width: 50rem;
+  background: white;
+  box-shadow: 0 2px 8px 4px rgba(0, 0, 0, 0.4);
 }
 .title {
   margin-bottom: 1rem;
   text-align: center;
 }
 .info {
-  padding: 0.5rem;
-  margin: 1rem 0;
+  padding: 1rem;
+  margin: 1rem;
+  border-bottom: 1px solid black;
 }
 .content {
   line-height: 2;
-  background: white;
-  box-shadow: 0 2px 8px 4px rgba(0, 0, 0, 0.4);
   padding: 1rem 2rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 .sub-header {
-  margin: 0;
-  padding: 0;
+  margin: 0.25rem;
+  font-size: 12px;
+}
+.sub-header span {
   font-weight: bold;
 }
 </style>

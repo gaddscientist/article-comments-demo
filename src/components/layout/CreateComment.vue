@@ -5,6 +5,7 @@
       cols="60"
       rows="5"
       placeholder="Post a comment!"
+      v-model="commentBody"
     ></textarea>
     <button class="btn" v-if="isLoggedIn">Submit</button>
     <button class="btn" v-else>Sign In</button>
@@ -16,6 +17,7 @@ export default {
   data() {
     return {
       isLoggedIn: false,
+      commentBody: '',
     };
   },
 };
@@ -32,7 +34,6 @@ export default {
   padding: 1rem;
   font-size: 1.1em;
 }
-
 #comment:focus {
   outline: none;
 }
@@ -50,8 +51,10 @@ export default {
 .btn:hover {
   background: #ddd;
 }
+
 form {
   margin: 2rem auto;
   width: 70%;
+  max-width: 40rem;
 }
 </style>
