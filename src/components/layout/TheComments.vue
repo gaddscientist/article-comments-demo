@@ -3,9 +3,8 @@
   <ul>
     <single-comment
       v-for="comment in comments"
-      :key="comment.uname"
-      :uname="comment.uname"
-      :body="comment.body"
+      :key="comment.id"
+      :item="comment"
     />
   </ul>
 </template>
@@ -30,5 +29,9 @@ export default {
   margin: 0 auto;
   max-width: 50rem;
   width: 100%;
+}
+ul {
+  width: 50rem;
+  margin: 0 auto;
 }
 </style>
