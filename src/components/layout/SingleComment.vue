@@ -3,21 +3,28 @@
     <!-- <li class="main"> -->
     <div class="comment">
       <div class="comment-title">
-        <a class="collapse" href="#" @click.prevent="toggle = !toggle">[-]</a>
+        <a class="collapse" href="#" @click.prevent="isVisible = !isVisible"
+          >[-]</a
+        >
         <p class="username">{{ item.uname }}</p>
         <span class="rating">+32</span>
       </div>
-      <p v-if="toggle">{{ item.body }}</p>
+      <p v-if="isVisible">{{ item.body }}</p>
     </div>
-    <div class="vote" v-if="toggle">
+    <div class="vote" v-if="isVisible">
       <button class="btn upvote">^</button>
       <button class="btn downvote">^</button>
       <button class="reply">Reply</button>
     </div>
   </li>
 
-  <template v-if="item.children">
-    <single-comment v-for="item in item.children" :key="item.id" :item="item" />
+  <template v-if="item.children && isVisible">
+    <single-comment
+      v-for="item in item.children"
+      :key="item.id"
+      :item="item"
+      :visible="isVisible"
+    />
   </template>
 </template>
 
@@ -27,7 +34,7 @@ export default {
   props: ['item'],
   data() {
     return {
-      toggle: true,
+      isVisible: true,
     };
   },
   computed: {
@@ -44,16 +51,15 @@ a {
 }
 .main {
   list-style: none;
-  /* width: 50rem; */
-  margin: 2rem 0 2rem auto;
-  padding: 0 1rem;
-  border-left: 1px solid #aaa;
+  margin: 0 0 0 auto;
+  padding: 1rem 1rem 1rem 1rem;
   border-bottom: 1px solid #aaa;
+  border-left: 1px solid #aaa;
 }
 .comment {
   background: white;
   border-radius: 10px;
-  margin: 0.25rem 0;
+  margin: 0 0;
   padding: 0.5rem;
 }
 .comment-title {
