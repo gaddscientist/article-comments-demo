@@ -7,7 +7,7 @@
           >[-]</a
         >
         <p class="username">{{ item.uname }}</p>
-        <span class="rating">+32</span>
+        <span class="rating">{{ item.date ? date : 'n/a' }}</span>
       </div>
       <p v-if="isVisible">{{ item.body }}</p>
     </div>
@@ -39,7 +39,16 @@ export default {
   },
   computed: {
     childStyles() {
-      return { width: 50 - 6 * this.item.depth + 'rem' };
+      return { 'max-width': 50 - 6 * this.item.depth + 'rem' };
+    },
+    date() {
+      return (
+        this.item.date.toLocaleDateString('en-US') +
+        ' ' +
+        this.item.date.getHours() +
+        ':' +
+        this.item.date.getMinutes()
+      );
     },
   },
 };
@@ -53,8 +62,7 @@ a {
   list-style: none;
   margin: 0 0 0 auto;
   padding: 1rem 1rem 1rem 1rem;
-  border-bottom: 1px solid #aaa;
-  border-left: 1px solid #aaa;
+  /* border: 1px solid #aaa; */
 }
 .comment {
   background: white;

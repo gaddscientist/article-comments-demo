@@ -1,5 +1,12 @@
 <template>
-  <form @submit.prevent="">
+  <form @submit.prevent="postComment">
+    <label for="username"><strong>Username: </strong></label>
+    <input
+      id="username"
+      type="text"
+      style="box-shadow: 0 2px 4px 4px rgba(0, 0, 0, 0.25);"
+      v-model="uname"
+    />
     <textarea
       id="comment"
       cols="60"
@@ -16,9 +23,19 @@
 export default {
   data() {
     return {
-      isLoggedIn: false,
+      isLoggedIn: true,
+      uname: '',
       commentBody: '',
     };
+  },
+  methods: {
+    postComment() {
+      this.$store.dispatch('postComment', {
+        depth: 0,
+        uname: this.uname,
+        body: this.commentBody,
+      });
+    },
   },
 };
 </script>

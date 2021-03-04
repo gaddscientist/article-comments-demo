@@ -31,7 +31,7 @@ export default {
   width: 100%;
 }
 ul {
-  width: 50rem;
+  max-width: 50rem;
   margin: 0 auto;
 }
 </style>

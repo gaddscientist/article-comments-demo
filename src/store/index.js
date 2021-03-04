@@ -3,6 +3,7 @@ import { createStore } from 'vuex';
 export default createStore({
   state() {
     return {
+      id: 22,
       comments: [
         {
           id: 1,
@@ -194,11 +195,25 @@ export default createStore({
       ],
     };
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    addNewComment(state, payload) {
+      state.comments.push({
+        id: state.id++,
+        uname: payload.uname,
+        depth: payload.depth,
+        body: payload.body,
+        date: new Date(),
+      });
+    },
+  },
+  actions: {
+    postComment(context, payload) {
+      context.commit('addNewComment', payload);
+    },
+  },
   getters: {
     getComments(state) {
-      return state.comments;
+      return state.comments.reverse();
     },
   },
   modules: {},
