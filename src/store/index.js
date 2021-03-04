@@ -202,7 +202,13 @@ export default createStore({
         uname: payload.uname,
         depth: payload.depth,
         body: payload.body,
-        date: new Date(),
+        date: new Date().toLocaleString('en-US', {
+          year: '2-digit',
+          month: 'numeric',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+        }),
       });
     },
   },

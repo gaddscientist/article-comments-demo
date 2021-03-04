@@ -7,7 +7,7 @@
           >[-]</a
         >
         <p class="username">{{ item.uname }}</p>
-        <span class="rating">{{ item.date ? date : 'n/a' }}</span>
+        <span class="rating">{{ item.date ? item.date : 'n/a' }}</span>
       </div>
       <p v-if="isVisible">{{ item.body }}</p>
     </div>
