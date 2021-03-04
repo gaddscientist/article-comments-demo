@@ -7,7 +7,7 @@
           >[-]</a
         >
         <p class="username">{{ item.uname }}</p>
-        <span class="rating">{{ item.date ? item.date : 'n/a' }}</span>
+        <span class="rating">{{ timestamp }}</span>
       </div>
       <p v-if="isVisible">{{ item.body }}</p>
     </div>
@@ -41,14 +41,14 @@ export default {
     childStyles() {
       return { 'max-width': 50 - 6 * this.item.depth + 'rem' };
     },
-    date() {
-      return (
-        this.item.date.toLocaleDateString('en-US') +
-        ' ' +
-        this.item.date.getHours() +
-        ':' +
-        this.item.date.getMinutes()
-      );
+    timestamp() {
+      return new Date(this.item.timestamp).toLocaleString('en-US', {
+        year: '2-digit',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+      });
     },
   },
 };

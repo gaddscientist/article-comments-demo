@@ -24,7 +24,7 @@ app.post('/article', async function(req, res) {
   //   parentId = null;
 
   // Inserts new comment into database
-  const result = await db.addComment(
+  const affectedRows = await db.addComment(
     timestamp,
     uname,
     commentBody,
@@ -32,14 +32,21 @@ app.post('/article', async function(req, res) {
     parentId
   );
 
-  console.log(`${result} rows affected`);
+  console.log(`${affectedRows} rows affected`);
+  res.json(affectedRows);
 });
 
-// src folder is one folder above server.js file
-const rootDir = path.join(__dirname, '..', '..');
+// Handles GET request to retrieve all comments
+app.get('/article', async function(req, res) {
+  const comments = await db.getComments();
+  res.json(comments);
+});
+
+// src folder is two folders above server.js file, and in the static dist folder
+const rootDir = path.join(__dirname, '..', '..', '/dist/');
 
 // Default handler
-app.use(express.static(path.join(rootDir, '/dist/')));
+app.use(express.static(path.join(rootDir)));
 
 // Listen for any incoming requests
 app.listen(5000);

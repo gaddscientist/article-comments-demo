@@ -13,9 +13,7 @@ connection.connect(function(err, columns) {
 });
 
 // TESTING
-const executeQuery = (query, data) => {
-  console.log(query);
-  console.log(data);
+const executeQuery = (query, data = null) => {
   return new Promise((resolve, reject) => {
     connection.query(query, data, function(error, results, fields) {
       if (error) {
@@ -43,6 +41,11 @@ async function addComment(
   return result.affectedRows;
 }
 
+async function getComments() {
+  const query = 'SELECT * FROM comments';
+  return await executeQuery(query);
+}
+
 // TESTING
 (async () => {
   // const query = 'SELECT * FROM comments';
@@ -65,4 +68,4 @@ process.on('SIGINT', function() {
   process.exit();
 });
 
-module.exports = { addComment };
+module.exports = { addComment, getComments };

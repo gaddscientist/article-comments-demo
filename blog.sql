@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS comments;
 
 CREATE TABLE comments(
     post_id INT(6) AUTO_INCREMENT,
-    timestamp DATE NOT NULL,
+    timestamp DATETIME NOT NULL,
     uname VARCHAR(20) NOT NULL,
     body VARCHAR(256) NOT NULL,
     depth INT(3) NOT NULL,

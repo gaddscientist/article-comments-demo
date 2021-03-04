@@ -7,6 +7,11 @@ const routes = [
     name: 'Article',
     component: Article,
   },
+  // {
+  //   path: '/article',
+  //   name: 'Article',
+  //   component: Article,
+  // },
 ];
 
 const router = createRouter({

@@ -1,6 +1,6 @@
 <template>
   <div class="line-br"></div>
-  <ul>
+  <ul v-if="hasComments">
     <single-comment
       v-for="comment in comments"
       :key="comment.id"
@@ -15,9 +15,30 @@ export default {
   components: {
     SingleComment,
   },
+  created() {
+    this.getComments();
+  },
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
   computed: {
     comments() {
       return this.$store.getters['getComments'];
+    },
+  },
+  methods: {
+    hasComments() {
+      return !this.isLoading && this.$store.getters['hasComments'];
+    },
+    async getComments() {
+      try {
+        const comments = await this.$store.dispatch('loadComments');
+        console.log(comments);
+      } catch (err) {
+        console.log(err.message);
+      }
     },
   },
 };
