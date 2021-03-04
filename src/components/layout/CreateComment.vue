@@ -11,6 +11,7 @@
       id="comment"
       cols="60"
       rows="5"
+      maxlength="256"
       placeholder="Post a comment!"
       v-model="commentBody"
     ></textarea>
