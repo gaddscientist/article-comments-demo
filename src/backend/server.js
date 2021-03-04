@@ -38,7 +38,7 @@ app.post('/article', async function(req, res) {
 
 // Handles GET request to retrieve all comments
 app.get('/article', async function(req, res) {
-  const comments = await db.getComments();
+  const comments = await db.getRootComments();
   res.json(comments);
 });
 

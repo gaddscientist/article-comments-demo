@@ -46,12 +46,36 @@ async function getComments() {
   return await executeQuery(query);
 }
 
+async function getRootComments() {
+  const query = 'Select * FROM comments WHERE depth = 0';
+  const results = await executeQuery(query);
+  return await populateChildren(results);
+}
+async function getChildComponents(parentId) {
+  const query = `Select * FROM comments WHERE parent_id = ${parentId}`;
+  return await executeQuery(query);
+}
+
+async function populateChildren(parents) {
+  const results = await Promise.all(
+    parents.map(async parent => {
+      let obj = {
+        ...parent,
+        children: await getChildComponents(parent.post_id),
+      };
+      if (obj.children !== []) {
+        obj.children = await populateChildren(obj.children);
+      }
+      return obj;
+    })
+  );
+  return results;
+}
+
 // TESTING
 (async () => {
-  // const query = 'SELECT * FROM comments';
-  // const stuff = await executeQuery(query);
-  // console.log(stuff);
-  // await addComment('07-10-2020 10:20 AM', 'elvingadd', 'TEST BODY', 0, null);
+  // let results = await getRootComments();
+  // results.forEach(result => console.log(result.children));
 })();
 
 // Handler to shut down database on interrupt
@@ -68,4 +92,4 @@ process.on('SIGINT', function() {
   process.exit();
 });
 
-module.exports = { addComment, getComments };
+module.exports = { addComment, getRootComments };

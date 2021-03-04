@@ -17,7 +17,7 @@ INSERT INTO comments VALUES ( 1000, STR_TO_DATE('07-10-2020 09:20 AM', '%d-%m-%Y
   INSERT INTO comments VALUES ( 1001, STR_TO_DATE('07-10-2020 12:22 PM', '%d-%m-%Y %h:%i %p'), 'wattlexp', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora similique ipsam reprehenderit reiciendis totam quasi delectus quo fugit vitae ipsa dicta minima quas sequi quidem, deserunt aliquam cumque provident accusamus?', 1, 1000);
 
 INSERT INTO comments VALUES ( 1002, STR_TO_DATE('07-10-2020 10:20 AM', '%d-%m-%Y %h:%i %p'), 'sweetiele', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora similique ipsam reprehenderit reiciendis totam quasi delectus quo fugit vitae ipsa dicta minima quas sequi quidem, deserunt aliquam cumque provident accusamus?', 0, NULL);
-INSERT INTO comments VALUES ( 1008, STR_TO_DATE('07-10-2020 04:25 PM', '%d-%m-%Y %h:%i %p'), 'liveltekah', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora similique ipsam reprehenderit reiciendis totam quasi delectus quo fugit vitae ipsa dicta minima quas sequi quidem, deserunt aliquam cumque provident accusamus?', 1, 1002);
+  INSERT INTO comments VALUES ( 1008, STR_TO_DATE('07-10-2020 04:25 PM', '%d-%m-%Y %h:%i %p'), 'liveltekah', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora similique ipsam reprehenderit reiciendis totam quasi delectus quo fugit vitae ipsa dicta minima quas sequi quidem, deserunt aliquam cumque provident accusamus?', 1, 1002);
 
 
 
