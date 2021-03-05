@@ -37,8 +37,8 @@
       </p>
     </div>
   </div>
-  <create-comment />
-  <the-comments />
+  <create-comment @commentPosted="toggleRecentPost" />
+  <the-comments :shouldRefresh="recentPost" @refreshed="toggleRecentPost" />
 </template>
 
 <script>
@@ -49,6 +49,16 @@ export default {
   components: {
     CreateComment,
     TheComments,
+  },
+  data() {
+    return {
+      recentPost: false,
+    };
+  },
+  methods: {
+    toggleRecentPost() {
+      this.recentPost = !this.recentPost;
+    },
   },
 };
 </script>

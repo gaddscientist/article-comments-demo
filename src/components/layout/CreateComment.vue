@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="postComment">
+  <form @submit.prevent="postRootComment">
     <label for="username"><strong>Username: </strong></label>
     <input
       id="username"
@@ -30,12 +30,15 @@ export default {
     };
   },
   methods: {
-    postComment() {
+    postRootComment() {
       this.$store.dispatch('postComment', {
         depth: 0,
         uname: this.uname,
-        body: this.commentBody,
+        commentBody: this.commentBody,
       });
+      this.$emit('commentPosted');
+      this.uname = '';
+      this.commentBody = '';
     },
   },
 };

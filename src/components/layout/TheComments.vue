@@ -5,6 +5,7 @@
       v-for="comment in comments"
       :key="comment.id"
       :item="comment"
+      @postRootComment="getComments"
     />
   </ul>
 </template>
@@ -18,6 +19,7 @@ export default {
   created() {
     this.getComments();
   },
+  props: ['shouldRefresh'],
   data() {
     return {
       isLoading: false,
@@ -34,10 +36,16 @@ export default {
     },
     async getComments() {
       try {
-        const comments = await this.$store.dispatch('loadComments');
-        console.log(comments);
+        this.comments = await this.$store.dispatch('loadComments');
       } catch (err) {
         console.log(err.message);
+      }
+    },
+  },
+  watch: {
+    shouldRefresh(newVal) {
+      if (newVal) {
+        this.getComments();
       }
     },
   },

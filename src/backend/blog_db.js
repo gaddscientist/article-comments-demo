@@ -12,7 +12,6 @@ connection.connect(function(err, columns) {
   }
 });
 
-// TESTING
 const executeQuery = (query, data = null) => {
   return new Promise((resolve, reject) => {
     connection.query(query, data, function(error, results, fields) {
@@ -32,7 +31,7 @@ async function addComment(
   depth,
   parentId = null
 ) {
-  const query = `INSERT INTO comments VALUES ( NULL, STR_TO_DATE('${timestamp}', '%d-%m-%Y %h:%i %p'), '${uname}', '${commentBody}', ${depth}, ${
+  const query = `INSERT INTO comments VALUES ( NULL, STR_TO_DATE('${timestamp}', '%m/%d/%Y %h:%i %p'), '${uname}', '${commentBody}', ${depth}, ${
     parentId ? parentId : 'NULL'
   } )`;
 
@@ -41,17 +40,12 @@ async function addComment(
   return result.affectedRows;
 }
 
-async function getComments() {
-  const query = 'SELECT * FROM comments';
-  return await executeQuery(query);
-}
-
 async function getRootComments() {
   const query = 'Select * FROM comments WHERE depth = 0';
   const results = await executeQuery(query);
   return await populateChildren(results);
 }
-async function getChildComponents(parentId) {
+async function getChildComments(parentId) {
   const query = `Select * FROM comments WHERE parent_id = ${parentId}`;
   return await executeQuery(query);
 }
@@ -61,7 +55,7 @@ async function populateChildren(parents) {
     parents.map(async parent => {
       let obj = {
         ...parent,
-        children: await getChildComponents(parent.post_id),
+        children: await getChildComments(parent.post_id),
       };
       if (obj.children !== []) {
         obj.children = await populateChildren(obj.children);
