@@ -38,7 +38,7 @@
         </p>
       </div>
     </div>
-    <create-comment @commentPosted="toggleRecentPost" />
+    <create-comment depth="-1" @commentPosted.self="toggleRecentPost" />
     <the-comments :shouldRefresh="recentPost" @refreshed="toggleRecentPost" />
   </div>
 </template>

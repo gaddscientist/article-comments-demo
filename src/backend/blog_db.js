@@ -37,7 +37,7 @@ async function addComment(
 
   const data = [timestamp, uname, commentBody, depth, parentId];
   const result = await executeQuery(query, data);
-  return result.affectedRows;
+  return result.insertId;
 }
 
 async function getRootComments() {

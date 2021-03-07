@@ -21,7 +21,11 @@
       </div>
     </collapse-transition>
     <div v-if="showReply">
-      <create-comment />
+      <create-comment
+        :depth="item.depth"
+        :parentId="item.post_id"
+        @commentPosted="showReply = false"
+      />
     </div>
   </li>
 
@@ -30,7 +34,7 @@
       <template v-if="item.children && isVisible">
         <single-comment
           v-for="item in item.children"
-          :key="item.id"
+          :key="item.post_id"
           :item="item"
           :visible="isVisible"
         />

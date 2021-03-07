@@ -1,33 +1,18 @@
 import { createStore } from 'vuex';
-import * as stuff from '../../comments';
+// import * as stuff from '../../comments';
 
 export default createStore({
   state() {
     return {
-      // comments: [],
-      comments: stuff.default,
+      comments: [],
+      // comments: stuff.default,
       loggedIn: false,
       userId: '',
     };
   },
   mutations: {
     addNewComment(state, payload) {
-      state.comments.push({
-        uname: payload.uname,
-        depth: payload.depth,
-        commentBody: payload.commentBody,
-        timestamp: new Date()
-          .toLocaleString('en-US', {
-            year: '2-digit',
-            month: 'numeric',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-          })
-          .split(',')
-          .join(''),
-        parentId: payload.parentId ? payload.parentId : null,
-      });
+      state.comments.push(payload);
     },
     updateComments(state, payload) {
       state.comments = payload;
@@ -43,33 +28,21 @@ export default createStore({
   },
   actions: {
     async postComment(context, payload) {
-      const rowsAffected = await fetch('http://localhost:5000/article', {
+      let structuredPost = structurePostObject(payload);
+      console.log(structuredPost.timestamp);
+      console.log(typeof structuredPost.timestamp);
+      const newPostIdJSON = await fetch('http://localhost:5000/article', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          uname: payload.uname,
-          depth: payload.depth,
-          commentBody: payload.commentBody,
-          timestamp: new Date()
-            .toLocaleString('en-US', {
-              year: '2-digit',
-              month: 'numeric',
-              day: 'numeric',
-              hour: 'numeric',
-              minute: 'numeric',
-            })
-            .split(',')
-            .join(''),
-          parentId: payload.parentId ? payload.parentId : null,
-        }),
+        body: JSON.stringify(structuredPost),
       });
 
-      console.log(rowsAffected);
-      if (rowsAffected > 0) {
-        context.commit('addNewComment', payload);
-      }
+      const newPostId = await newPostIdJSON.json();
+      structuredPost.post_id = newPostId;
+
+      context.commit('addNewComment', structurePostObject);
     },
     async loadComments(context) {
       const commentsJSON = await fetch('http://localhost:5000/article', {
@@ -88,7 +61,6 @@ export default createStore({
   },
   getters: {
     getComments(state) {
-      console.log(stuff);
       return state.comments.reverse();
     },
     hasComments(state) {
@@ -103,3 +75,22 @@ export default createStore({
   },
   modules: {},
 });
+
+function structurePostObject(payload) {
+  return {
+    uname: payload.uname,
+    depth: payload.depth,
+    commentBody: payload.commentBody,
+    timestamp: new Date()
+      .toLocaleString('en-US', {
+        year: '2-digit',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+      })
+      .split(',')
+      .join(''),
+    parentId: payload.parentId ? payload.parentId : null,
+  };
+}

@@ -17,7 +17,7 @@ app.post('/article', async function(req, res) {
   const parentId = req.body.parentId ? req.body.parentId : null;
 
   // Inserts new comment into database
-  const affectedRows = await db.addComment(
+  const newId = await db.addComment(
     timestamp,
     uname,
     commentBody,
@@ -25,8 +25,8 @@ app.post('/article', async function(req, res) {
     parentId
   );
 
-  console.log(`${affectedRows} row(s) affected`);
-  res.json(affectedRows);
+  console.log(`New post added with id: ${newId}`);
+  res.json(newId);
 });
 
 // Handles GET request to retrieve all comments

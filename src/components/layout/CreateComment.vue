@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form @submit.prevent="postRootComment">
+    <form @submit.prevent="postComment">
       <textarea
         id="comment"
         cols="60"
@@ -20,6 +20,7 @@
 
 <script>
 export default {
+  props: ['depth', 'parentId'],
   data() {
     return {
       commentBody: '',
@@ -34,12 +35,14 @@ export default {
     },
   },
   methods: {
-    postRootComment() {
+    postComment() {
       this.$store.dispatch('postComment', {
-        depth: 0,
+        depth: parseInt(this.depth) + 1,
         uname: this.uname,
         commentBody: this.commentBody,
+        parentId: this.parentId,
       });
+      this.$store.dispatch('loadComments');
       this.$emit('commentPosted');
       this.commentBody = '';
     },

@@ -6,7 +6,7 @@
         v-for="comment in comments"
         :key="comment.id"
         :item="comment"
-        @postRootComment="getComments"
+        @postComment="getComments"
       />
     </ul>
   </div>
