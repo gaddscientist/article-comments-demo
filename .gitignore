@@ -2,6 +2,7 @@
 node_modules
 /dist
 credentials.json
+comments.js
 
 
 # local env files

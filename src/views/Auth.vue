@@ -1,5 +1,5 @@
 <template>
-  <auth-form mode="signup" />
+  <auth-form :mode="mode" />
 </template>
 
 <script>
@@ -9,8 +9,10 @@ export default {
   components: {
     AuthForm,
   },
-  data() {
-    return {};
+  computed: {
+    mode() {
+      return this.$router.currentRoute.value.path.slice(1);
+    },
   },
 };
 </script>

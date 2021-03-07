@@ -1,10 +1,13 @@
 import { createStore } from 'vuex';
+import * as stuff from '../../comments';
 
 export default createStore({
   state() {
     return {
-      comments: [],
+      // comments: [],
+      comments: stuff.default,
       loggedIn: false,
+      userId: '',
     };
   },
   mutations: {
@@ -28,6 +31,14 @@ export default createStore({
     },
     updateComments(state, payload) {
       state.comments = payload;
+    },
+    setUserId(state, payload) {
+      state.userId = payload.userId;
+      if (payload.userId) {
+        state.loggedIn = true;
+      } else {
+        state.loggedIn = false;
+      }
     },
   },
   actions: {
@@ -71,9 +82,13 @@ export default createStore({
       console.log(comments);
       context.commit('updateComments', comments);
     },
+    updateUserId(context, payload) {
+      context.commit('setUserId', payload);
+    },
   },
   getters: {
     getComments(state) {
+      console.log(stuff);
       return state.comments.reverse();
     },
     hasComments(state) {
@@ -81,6 +96,9 @@ export default createStore({
     },
     isLoggedIn(state) {
       return state.loggedIn;
+    },
+    getUser(state) {
+      return state.userId;
     },
   },
   modules: {},

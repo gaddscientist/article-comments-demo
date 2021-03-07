@@ -1,14 +1,14 @@
 <template>
   <div class="container">
     <nav id="navbar">
-      <h3>Blog App</h3>
+      <h3><router-link to="/" class="app-name">Blog App</router-link></h3>
       <ul>
         <li><router-link to="/">Home</router-link></li>
         <li v-if="!loggedIn"><router-link to="/login">Login</router-link></li>
         <li v-if="!loggedIn">
           <router-link to="/signup">Sign Up</router-link>
         </li>
-        <li v-if="loggedIn" @click="logout"><a>Logout</a></li>
+        <li v-if="loggedIn" @click="logout"><a class="logout">Logout</a></li>
       </ul>
     </nav>
   </div>
@@ -22,15 +22,14 @@ export default {
     },
   },
   methods: {
-    logout() {},
+    logout() {
+      this.$store.dispatch('updateUserId', { userId: null });
+    },
   },
 };
 </script>
 
 <style scoped>
-.container {
-  background: #292929;
-}
 #navbar {
   display: flex;
   color: white;
@@ -46,7 +45,8 @@ export default {
   list-style: none;
 }
 
-#navbar ul li a {
+#navbar ul li a,
+.app-name {
   font-weight: bold;
   color: white;
   padding: 0.5rem;
@@ -57,5 +57,11 @@ export default {
   background: #444;
   color: white;
   border-radius: 5px;
+}
+.container {
+  background: #292929;
+}
+.logout:hover {
+  cursor: pointer;
 }
 </style>

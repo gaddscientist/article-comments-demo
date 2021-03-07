@@ -1,12 +1,17 @@
 <template>
   <div class="container">
-    <form submit.prevent="">
+    <form @submit.prevent="submitForm">
       <p class="title">{{ title }}</p>
       <div class="input-group">
-        <input type="text" placeholder="Username" required />
+        <input type="text" placeholder="Username" required v-model="username" />
       </div>
       <div class="input-group">
-        <input type="password" placeholder="Password" required />
+        <input
+          type="password"
+          placeholder="Password"
+          required
+          v-model="password"
+        />
       </div>
       <div class="input-group" v-if="mode !== 'login'">
         <input type="password" placeholder="Re-enter Password" required />
@@ -24,6 +29,12 @@
 <script>
 export default {
   props: ['mode'],
+  data() {
+    return {
+      username: '',
+      password: '',
+    };
+  },
   computed: {
     title() {
       return this.mode === 'login' ? 'Please Log In' : 'Enter Sign Up Info';
@@ -38,6 +49,12 @@ export default {
     },
     linkText() {
       return this.mode === 'login' ? 'Sign up' : 'Login';
+    },
+  },
+  methods: {
+    submitForm() {
+      this.$store.dispatch('updateUserId', { userId: this.username });
+      this.$router.push('/');
     },
   },
 };

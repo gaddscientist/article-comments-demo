@@ -1,15 +1,15 @@
 <template>
-<div>
-  <div class="line-br"></div>
-  <ul v-if="hasComments">
-    <single-comment
-      v-for="comment in comments"
-      :key="comment.id"
-      :item="comment"
-      @postRootComment="getComments"
-    />
-  </ul>
-</div>
+  <div>
+    <div class="line-br"></div>
+    <ul v-if="hasComments">
+      <single-comment
+        v-for="comment in comments"
+        :key="comment.id"
+        :item="comment"
+        @postRootComment="getComments"
+      />
+    </ul>
+  </div>
 </template>
 
 <script>

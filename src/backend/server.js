@@ -2,9 +2,9 @@ const express = require('express');
 const path = require('path');
 const db = require('./blog_db');
 const app = express();
+// const fs = require('fs');
 
-// Parses data sent from front end
-app.use(express.urlencoded({ extended: false }));
+// Parses incoming request object as a JSON object
 app.use(express.json());
 
 // Handles POST requests to add a comment
@@ -16,13 +16,6 @@ app.post('/article', async function(req, res) {
     timestamp = req.body.timestamp;
   const parentId = req.body.parentId ? req.body.parentId : null;
 
-  // TESTING
-  // const timestamp = '07-10-2020 10:20 AM',
-  //   uname = 'elvingadd',
-  //   commentBody = 'TEST BODY',
-  //   depth = 0,
-  //   parentId = null;
-
   // Inserts new comment into database
   const affectedRows = await db.addComment(
     timestamp,
@@ -32,13 +25,14 @@ app.post('/article', async function(req, res) {
     parentId
   );
 
-  console.log(`${affectedRows} rows affected`);
+  console.log(`${affectedRows} row(s) affected`);
   res.json(affectedRows);
 });
 
 // Handles GET request to retrieve all comments
 app.get('/article', async function(req, res) {
   const comments = await db.getRootComments();
+  // fs.writeFileSync('comments.json', JSON.stringify(comments, null, 4));
   res.json(comments);
 });
 

@@ -1,33 +1,37 @@
 <template>
-  <form @submit.prevent="postRootComment">
-    <label for="username"><strong>Username: </strong></label>
-    <input
-      id="username"
-      type="text"
-      style="box-shadow: 0 2px 4px 4px rgba(0, 0, 0, 0.25);"
-      v-model="uname"
-    />
-    <textarea
-      id="comment"
-      cols="60"
-      rows="2"
-      maxlength="256"
-      placeholder="Post a comment!"
-      v-model="commentBody"
-    ></textarea>
-    <button class="btn" v-if="isLoggedIn">Submit</button>
-    <button class="btn" v-else>Sign In</button>
-  </form>
+  <div class="container">
+    <form @submit.prevent="postRootComment">
+      <textarea
+        id="comment"
+        cols="60"
+        rows="2"
+        maxlength="256"
+        placeholder="Post a comment!"
+        v-model="commentBody"
+        required
+      ></textarea>
+      <button class="btn" v-if="isLoggedIn">Submit</button>
+    </form>
+    <button class="btn" @click="handleSigninClick" v-if="!isLoggedIn">
+      Sign In
+    </button>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      isLoggedIn: true,
-      uname: '',
       commentBody: '',
     };
+  },
+  computed: {
+    uname() {
+      return this.$store.getters['getUser'];
+    },
+    isLoggedIn() {
+      return this.$store.getters['isLoggedIn'];
+    },
   },
   methods: {
     postRootComment() {
@@ -37,8 +41,10 @@ export default {
         commentBody: this.commentBody,
       });
       this.$emit('commentPosted');
-      this.uname = '';
       this.commentBody = '';
+    },
+    handleSigninClick() {
+      this.$router.push('/login');
     },
   },
 };
@@ -73,7 +79,7 @@ export default {
   background: #ddd;
 }
 
-form {
+.container {
   margin: 2rem auto 0.5rem auto;
   width: 70%;
   max-width: 40rem;
