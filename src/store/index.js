@@ -4,6 +4,7 @@ export default createStore({
   state() {
     return {
       comments: [],
+      loggedIn: false,
     };
   },
   mutations: {
@@ -77,6 +78,9 @@ export default createStore({
     },
     hasComments(state) {
       return state.comments && state.comments.length > 0;
+    },
+    isLoggedIn(state) {
+      return state.loggedIn;
     },
   },
   modules: {},

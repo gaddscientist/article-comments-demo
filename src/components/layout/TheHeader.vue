@@ -1,21 +1,43 @@
 <template>
-  <nav id="navbar">
-    <h3>Blog App</h3>
-    <ul>
-      <li><router-link to="/">Home</router-link></li>
-      <li><a href="#signup">Sign Up</a></li>
-      <li><a href="#login">Login</a></li>
-    </ul>
-  </nav>
+  <div class="container">
+    <nav id="navbar">
+      <h3>Blog App</h3>
+      <ul>
+        <li><router-link to="/">Home</router-link></li>
+        <li v-if="!loggedIn"><router-link to="/login">Login</router-link></li>
+        <li v-if="!loggedIn">
+          <router-link to="/signup">Sign Up</router-link>
+        </li>
+        <li v-if="loggedIn" @click="logout"><a>Logout</a></li>
+      </ul>
+    </nav>
+  </div>
 </template>
 
+<script>
+export default {
+  computed: {
+    loggedIn() {
+      return this.$store.getters['isLoggedIn'];
+    },
+  },
+  methods: {
+    logout() {},
+  },
+};
+</script>
+
 <style scoped>
+.container {
+  background: #292929;
+}
 #navbar {
   display: flex;
-  background: #292929;
   color: white;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 1rem;
+  max-width: 70rem;
+  margin: 0 auto;
 }
 
 #navbar ul {
