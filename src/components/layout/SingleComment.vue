@@ -14,7 +14,10 @@
     <div class="vote" v-if="isVisible">
       <button class="btn upvote">^</button>
       <button class="btn downvote">^</button>
-      <button class="reply">Reply</button>
+      <button class="reply" @click="toggleReply">Reply</button>
+    </div>
+    <div v-if="showReply">
+      <create-comment />
     </div>
   </li>
 
@@ -29,12 +32,18 @@
 </template>
 
 <script>
+import CreateComment from './CreateComment.vue';
+
 export default {
+  components: {
+    CreateComment
+  },
   name: 'SingleComment',
   props: ['item'],
   data() {
     return {
       isVisible: true,
+      showReply: false,
     };
   },
   computed: {
@@ -51,6 +60,11 @@ export default {
       });
     },
   },
+  methods: {
+    toggleReply() {
+      this.showReply = !this.showReply;
+    }
+  }
 };
 </script>
 

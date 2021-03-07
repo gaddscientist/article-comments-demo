@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="line-br"></div>
   <ul v-if="hasComments">
     <single-comment
@@ -8,6 +9,7 @@
       @postRootComment="getComments"
     />
   </ul>
+</div>
 </template>
 
 <script>

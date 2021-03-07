@@ -10,7 +10,7 @@
     <textarea
       id="comment"
       cols="60"
-      rows="5"
+      rows="2"
       maxlength="256"
       placeholder="Post a comment!"
       v-model="commentBody"
@@ -74,7 +74,7 @@ export default {
 }
 
 form {
-  margin: 2rem auto;
+  margin: 2rem auto 0.5rem auto;
   width: 70%;
   max-width: 40rem;
 }
