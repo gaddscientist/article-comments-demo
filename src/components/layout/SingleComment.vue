@@ -9,34 +9,44 @@
         <p class="username">{{ item.uname }}</p>
         <span class="rating">{{ timestamp }}</span>
       </div>
-      <p v-if="isVisible">{{ item.body }}</p>
+      <collapse-transition easing="ease-in-out">
+        <p v-if="isVisible">{{ item.body }}</p>
+      </collapse-transition>
     </div>
-    <div class="vote" v-if="isVisible">
-      <button class="btn upvote">^</button>
-      <button class="btn downvote">^</button>
-      <button class="reply" @click="toggleReply">Reply</button>
-    </div>
+    <collapse-transition easing="ease-in-out">
+      <div class="vote" v-if="isVisible">
+        <button class="btn upvote">^</button>
+        <button class="btn downvote">^</button>
+        <button class="reply" @click="toggleReply">Reply</button>
+      </div>
+    </collapse-transition>
     <div v-if="showReply">
       <create-comment />
     </div>
   </li>
 
-  <template v-if="item.children && isVisible">
-    <single-comment
-      v-for="item in item.children"
-      :key="item.id"
-      :item="item"
-      :visible="isVisible"
-    />
-  </template>
+  <collapse-transition easing="ease-in-out">
+    <div v-if="item.children && isVisible">
+      <template v-if="item.children && isVisible">
+        <single-comment
+          v-for="item in item.children"
+          :key="item.id"
+          :item="item"
+          :visible="isVisible"
+        />
+      </template>
+    </div>
+  </collapse-transition>
 </template>
 
 <script>
 import CreateComment from './CreateComment.vue';
+import CollapseTransition from '@ivanv/vue-collapse-transition/src/CollapseTransition.vue';
 
 export default {
   components: {
-    CreateComment
+    CreateComment,
+    CollapseTransition,
   },
   name: 'SingleComment',
   props: ['item'],
@@ -63,8 +73,8 @@ export default {
   methods: {
     toggleReply() {
       this.showReply = !this.showReply;
-    }
-  }
+    },
+  },
 };
 </script>
 
