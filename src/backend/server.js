@@ -7,8 +7,29 @@ const app = express();
 // Parses incoming request object as a JSON object
 app.use(express.json());
 
+/**
+ * Authentication Requests
+ */
+
+// Handles login requests
+app.post('/login', async (req, res) => {
+  // Get user data from DB
+  // Validate login info
+  // Return jwt key if validated or error if not
+});
+
+// Handles sign up requests
+app.post('/signup', async (req, res) => {
+  // Create user in DB
+  // Return jwt key
+});
+
+/**
+ * Comment Requests
+ */
+
 // Handles POST requests to add a comment
-app.post('/article', async function(req, res) {
+app.post('/article', async (req, res) => {
   // Gets chosen criteria into local variable
   const uname = req.body.uname,
     commentBody = req.body.commentBody,
@@ -30,7 +51,7 @@ app.post('/article', async function(req, res) {
 });
 
 // Handles GET request to retrieve all comments
-app.get('/article', async function(req, res) {
+app.get('/article', async (req, res) => {
   const comments = await db.getRootComments();
   // fs.writeFileSync('comments.json', JSON.stringify(comments, null, 4));
   res.json(comments);

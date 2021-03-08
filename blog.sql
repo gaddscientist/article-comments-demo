@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS comments;
+-- DROP TABLE IF EXISTS comments;
 
 CREATE TABLE comments(
     post_id INT(6) AUTO_INCREMENT,
@@ -24,6 +24,24 @@ INSERT INTO comments VALUES ( 1002, STR_TO_DATE('07-10-2020 10:20 AM', '%m-%d-%Y
 INSERT INTO comments VALUES ( 1003, STR_TO_DATE('07-10-2020 10:18 AM', '%m-%d-%Y %h:%i %p'), 'hyperyaufarer', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora similique ipsam reprehenderit reiciendis totam quasi delectus quo fugit vitae ipsa dicta minima quas sequi quidem, deserunt aliquam cumque provident accusamus?', 0, NULL);
 INSERT INTO comments VALUES ( 1004, STR_TO_DATE('07-10-2020 01:31 PM', '%m-%d-%Y %h:%i %p'), 'editussion', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora similique ipsam reprehenderit reiciendis totam quasi delectus quo fugit vitae ipsa dicta minima quas sequi quidem, deserunt aliquam cumque provident accusamus?', 0, NULL);
 INSERT INTO comments VALUES ( 1005, STR_TO_DATE('07-10-2020 03:57 PM', '%m-%d-%Y %h:%i %p'), 'experthead', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora similique ipsam reprehenderit reiciendis totam quasi delectus quo fugit vitae ipsa dicta minima quas sequi quidem, deserunt aliquam cumque provident accusamus?', 0, NULL);
+
+
+
+
+
+-- DROP TABLE IF EXISTS users;
+
+CREATE TABLE users(
+  user_id INT(6) AUTO_INCREMENT,
+  username VARCHAR(20) NOT NULL,
+  password VARCHAR(100) NOT NULL,
+  PRIMARY KEY (user_id)
+);
+
+INSERT INTO users VALUES (3000, 'hilldrupbf', 'password');
+
+
+
 
 -- More dummy usernames
 -- linguss

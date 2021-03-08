@@ -24,32 +24,35 @@ const executeQuery = (query, data = null) => {
   });
 };
 
+/* --------------
+ * Comments Table
+ * -------------- */
+
+// Inserts a comment into the comments table
 async function addComment(
   timestamp,
-  uname,
+  username,
   commentBody,
   depth,
   parentId = null
 ) {
-  const query = `INSERT INTO comments VALUES ( NULL, STR_TO_DATE('${timestamp}', '%m/%d/%Y %h:%i %p'), '${uname}', '${commentBody}', ${depth}, ${
+  const query = `INSERT INTO comments VALUES ( NULL, STR_TO_DATE('${timestamp}', '%m/%d/%Y %h:%i %p'), '${username}', '${commentBody}', ${depth}, ${
     parentId ? parentId : 'NULL'
   } )`;
 
-  const data = [timestamp, uname, commentBody, depth, parentId];
+  const data = [timestamp, username, commentBody, depth, parentId];
   const result = await executeQuery(query, data);
   return result.insertId;
 }
 
+// Gets all the comments at the root level
 async function getRootComments() {
-  const query = 'Select * FROM comments WHERE depth = 0';
+  const query = 'SELECT * FROM comments WHERE depth = 0';
   const results = await executeQuery(query);
   return await populateChildren(results);
 }
-async function getChildComments(parentId) {
-  const query = `Select * FROM comments WHERE parent_id = ${parentId}`;
-  return await executeQuery(query);
-}
 
+// Recursively builds nested object of parent/child comments
 async function populateChildren(parents) {
   const results = await Promise.all(
     parents.map(async parent => {
@@ -66,7 +69,25 @@ async function populateChildren(parents) {
   return results;
 }
 
-// TESTING
+// Gets the child comments for a given single comment
+async function getChildComments(parentId) {
+  const query = `SELECT * FROM comments WHERE parent_id = ${parentId}`;
+  return await executeQuery(query);
+}
+
+/* --------------
+ * Users Table
+ * -------------- */
+
+async function getUser(username) {
+  const query = `SELECT * from users WHERE username = ${username}`;
+  return await executeQuery(query);
+}
+async function addNewUser() {}
+
+/* --------
+ * TESTING
+ * -------- */
 (async () => {
   // let results = await getRootComments();
   // results.forEach(result => console.log(result.children));
