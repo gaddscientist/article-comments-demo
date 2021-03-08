@@ -25,7 +25,7 @@
         <button type="submit">{{ buttonCaption }}</button>
       </div>
       <p>
-        {{ bottomText }}<router-link to="/signup">{{ linkText }}</router-link>
+        {{ bottomText }}<router-link :to="linkPath">{{ linkText }}</router-link>
       </p>
     </form>
   </div>
@@ -56,6 +56,9 @@ export default {
     },
     linkText() {
       return this.mode === 'login' ? 'Sign up' : 'Login';
+    },
+    linkPath() {
+      return this.mode === 'login' ? '/signup' : '/login';
     },
   },
   methods: {
@@ -105,6 +108,13 @@ input {
   width: 100%;
   line-height: 3rem;
   font-size: 1rem;
+  padding: 0 0.3rem;
+}
+input:required {
+  box-shadow: none;
+}
+input:invalid {
+  box-shadow: none;
 }
 .title {
   display: flex;

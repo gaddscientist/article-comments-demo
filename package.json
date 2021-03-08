@@ -10,6 +10,7 @@
   "dependencies": {
     "@ivanv/vue-collapse-transition": "^1.0.0",
     "bcrypt": "^5.0.1",
+    "connect-history-api-fallback": "^1.6.0",
     "core-js": "^3.6.5",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",

@@ -39,7 +39,7 @@ export default {
       try {
         this.comments = await this.$store.dispatch('loadComments');
       } catch (err) {
-        console.log(err.message);
+        console.log('ERROR: Comments not retrieved: ' + err.message);
       }
     },
   },

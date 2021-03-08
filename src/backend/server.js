@@ -2,11 +2,14 @@ const express = require('express');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const db = require('./blog_db');
-const credentials = require('../../credentials.json');
+const history = require('connect-history-api-fallback');
 const app = express();
 
 // Parses incoming request object as a JSON object
 app.use(express.json());
+// Sends Routes all traffic through index.html so vue-router
+// can handle redirecting front end
+app.use(history());
 
 /**
  * Authentication Requests
@@ -45,12 +48,12 @@ app.post('/signup', async (req, res) => {
     const results = await db.addNewUser(user);
 
     if (results.affectedRows === 1) {
-      res.json({ message: 'Success' });
+      return res.json({ message: 'Success' });
     } else {
-      res.json({ message: 'ERROR: User not added' });
+      return res.json({ message: 'ERROR: User not added' });
     }
   } catch {
-    res.json({ message: 'Server error' });
+    return res.json({ message: 'Server error' });
   }
 });
 
