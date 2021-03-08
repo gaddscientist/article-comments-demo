@@ -33,7 +33,7 @@ INSERT INTO comments VALUES ( 1005, STR_TO_DATE('07-10-2020 03:57 PM', '%m-%d-%Y
 
 CREATE TABLE users(
   user_id INT(6) AUTO_INCREMENT,
-  username VARCHAR(20) NOT NULL,
+  username VARCHAR(20) UNIQUE NOT NULL,
   password VARCHAR(100) NOT NULL,
   PRIMARY KEY (user_id)
 );

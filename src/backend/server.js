@@ -1,8 +1,9 @@
 const express = require('express');
 const path = require('path');
+const bcrypt = require('bcrypt');
 const db = require('./blog_db');
+const credentials = require('../../credentials.json');
 const app = express();
-// const fs = require('fs');
 
 // Parses incoming request object as a JSON object
 app.use(express.json());
@@ -13,15 +14,44 @@ app.use(express.json());
 
 // Handles login requests
 app.post('/login', async (req, res) => {
+  const username = req.body.username;
+
   // Get user data from DB
+  let user = await db.getUser(username);
+  // Query returns an array of objects and this gets the first(only) one
+  user.length !== 1
+    ? res.json({ message: 'ERROR: User not found' })
+    : (user = user[0]);
+
   // Validate login info
-  // Return jwt key if validated or error if not
+  try {
+    // returns false if password incorrect
+    return (await bcrypt.compare(req.body.password, user.password))
+      ? res.json({ message: 'Success' })
+      : res.json({ message: 'Password incorrect' });
+  } catch {
+    // Server error
+    return res.json({ message: 'Server error' });
+  }
 });
 
 // Handles sign up requests
 app.post('/signup', async (req, res) => {
-  // Create user in DB
-  // Return jwt key
+  try {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const user = { username: req.body.username, password: hashedPassword };
+
+    // Create user in DB
+    const results = await db.addNewUser(user);
+
+    if (results.affectedRows === 1) {
+      res.json({ message: 'Success' });
+    } else {
+      res.json({ message: 'ERROR: User not added' });
+    }
+  } catch {
+    res.json({ message: 'Server error' });
+  }
 });
 
 /**

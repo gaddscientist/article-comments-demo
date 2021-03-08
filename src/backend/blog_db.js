@@ -80,10 +80,14 @@ async function getChildComments(parentId) {
  * -------------- */
 
 async function getUser(username) {
-  const query = `SELECT * from users WHERE username = ${username}`;
+  const query = `SELECT * from users WHERE username = '${username}'`;
   return await executeQuery(query);
 }
-async function addNewUser() {}
+
+async function addNewUser(user) {
+  const query = `INSERT INTO users VALUES ( NULL, '${user.username}', '${user.password}' )`;
+  return await executeQuery(query);
+}
 
 /* --------
  * TESTING
@@ -107,4 +111,4 @@ process.on('SIGINT', function() {
   process.exit();
 });
 
-module.exports = { addComment, getRootComments };
+module.exports = { addComment, getRootComments, getUser, addNewUser };
