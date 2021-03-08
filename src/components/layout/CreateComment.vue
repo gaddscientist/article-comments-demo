@@ -43,7 +43,6 @@ export default {
         parentId: this.parentId,
       });
       this.$store.dispatch('loadComments');
-      this.$emit('commentPosted');
       this.commentBody = '';
     },
     handleSigninClick() {

@@ -14,7 +14,12 @@
         />
       </div>
       <div class="input-group" v-if="mode !== 'login'">
-        <input type="password" placeholder="Re-enter Password" required />
+        <input
+          type="password"
+          placeholder="Re-enter Password"
+          v-model="passwordRE"
+          required
+        />
       </div>
       <div class="input-group">
         <button type="submit">{{ buttonCaption }}</button>
@@ -60,11 +65,16 @@ export default {
         password: this.password,
         passwordRE: this.passwordRE,
       };
+
       this.isLoading = true;
 
       if (this.mode === 'login') {
         await this.$store.dispatch('login', authInfo);
       } else {
+        if (this.password !== this.passwordRE) {
+          alert('ERROR: Passwords do not match');
+          return;
+        }
         await this.$store.dispatch('signup', authInfo);
       }
 

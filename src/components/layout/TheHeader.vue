@@ -3,6 +3,9 @@
     <nav id="navbar">
       <h3><router-link to="/" class="app-name">Blog App</router-link></h3>
       <ul>
+        <li v-if="loggedIn">
+          <strong>{{ username }}</strong>
+        </li>
         <li><router-link to="/">Home</router-link></li>
         <li v-if="!loggedIn"><router-link to="/login">Login</router-link></li>
         <li v-if="!loggedIn">
@@ -20,10 +23,13 @@ export default {
     loggedIn() {
       return this.$store.getters['isLoggedIn'];
     },
+    username() {
+      return this.$store.getters['getUser'];
+    },
   },
   methods: {
     logout() {
-      this.$store.dispatch('updateUserId', { userId: null });
+      this.$store.dispatch('clearUsername');
     },
   },
 };

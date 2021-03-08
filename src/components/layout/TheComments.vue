@@ -21,7 +21,6 @@ export default {
   created() {
     this.getComments();
   },
-  props: ['shouldRefresh'],
   data() {
     return {
       isLoading: false,
@@ -41,13 +40,6 @@ export default {
         this.comments = await this.$store.dispatch('loadComments');
       } catch (err) {
         console.log(err.message);
-      }
-    },
-  },
-  watch: {
-    shouldRefresh(newVal) {
-      if (newVal) {
-        this.getComments();
       }
     },
   },
