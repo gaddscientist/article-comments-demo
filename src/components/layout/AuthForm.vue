@@ -33,6 +33,8 @@ export default {
     return {
       username: '',
       password: '',
+      passwordRE: '',
+      isLoading: false,
     };
   },
   computed: {
@@ -52,9 +54,25 @@ export default {
     },
   },
   methods: {
-    submitForm() {
-      this.$store.dispatch('updateUserId', { userId: this.username });
-      this.$router.push('/');
+    async submitForm() {
+      const authInfo = {
+        username: this.username,
+        password: this.password,
+        passwordRE: this.passwordRE,
+      };
+      this.isLoading = true;
+
+      if (this.mode === 'login') {
+        await this.$store.dispatch('login', authInfo);
+      } else {
+        await this.$store.dispatch('signup', authInfo);
+      }
+
+      this.isLoading = false;
+
+      if (this.$store.getters['isLoggedIn']) {
+        this.$router.replace('/');
+      }
     },
   },
 };
