@@ -14,10 +14,8 @@
       </collapse-transition>
     </div>
     <collapse-transition easing="ease-in-out">
-      <div class="vote" v-if="isVisible">
-        <button class="btn upvote">^</button>
-        <button class="btn downvote">^</button>
-        <button class="reply" @click="toggleReply">Reply</button>
+      <div class="reply" v-if="isVisible">
+        <button @click="toggleReply">Reply</button>
       </div>
     </collapse-transition>
     <div v-if="showReply">
@@ -94,7 +92,10 @@ a {
 }
 .comment {
   background: white;
-  border-radius: 10px;
+  /* border-radius: 10px; */
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
   margin: 0 0;
   padding: 0.5rem;
 }
@@ -114,9 +115,6 @@ a {
 .rating {
   font-size: 0.85em;
 }
-.vote {
-  display: flex;
-}
 .btn {
   width: 30px;
 }
@@ -125,5 +123,18 @@ a {
 }
 .reply {
   display: flex;
+  justify-content: flex-end;
+}
+button {
+  height: 2rem;
+  width: 4rem;
+  border: none;
+  background: #ddd;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+button:hover {
+  background: #999;
+  cursor: pointer;
 }
 </style>
