@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="line-br"></div>
     <ul v-if="hasComments">
       <single-comment
         v-for="comment in comments"
@@ -47,12 +46,6 @@ export default {
 </script>
 
 <style scoped>
-.line-br {
-  border-bottom: 2px solid black;
-  margin: 0 auto;
-  max-width: 50rem;
-  width: 100%;
-}
 ul {
   max-width: 50rem;
   margin: 0 auto;

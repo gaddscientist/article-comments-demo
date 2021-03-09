@@ -15,7 +15,9 @@
     </div>
     <collapse-transition easing="ease-in-out">
       <div class="reply" v-if="isVisible">
-        <button @click="toggleReply">Reply</button>
+        <button @click="toggleReply">
+          {{ showReply ? 'Cancel' : 'Reply' }}
+        </button>
       </div>
     </collapse-transition>
     <div v-if="showReply">
@@ -91,7 +93,7 @@ a {
   /* border: 1px solid #aaa; */
 }
 .comment {
-  background: white;
+  background: #eee;
   /* border-radius: 10px; */
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;

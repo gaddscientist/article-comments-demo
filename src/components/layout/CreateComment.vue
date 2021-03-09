@@ -1,7 +1,14 @@
 <template>
   <div class="container">
     <form @submit.prevent="postComment">
-      <textarea
+      <input
+        type="text"
+        id="comment"
+        placeholder="Post a comment!"
+        v-model="commentBody"
+        required
+      />
+      <!-- <textarea
         id="comment"
         cols="60"
         rows="2"
@@ -9,10 +16,10 @@
         placeholder="Post a comment!"
         v-model="commentBody"
         required
-      ></textarea>
-      <button class="btn" v-if="isLoggedIn">Submit</button>
+      ></textarea> -->
+      <button class="btn" v-if="!isLoggedIn">Submit</button>
     </form>
-    <button class="btn" @click="handleSigninClick" v-if="!isLoggedIn">
+    <button class="btn" @click="handleSigninClick" v-if="isLoggedIn">
       Sign In
     </button>
   </div>
@@ -54,36 +61,44 @@ export default {
 
 <style scoped>
 #comment {
-  margin: 1rem auto;
+  background: inherit;
   width: 100%;
-  display: block;
-  border-radius: 10px;
+  display: inline;
+  font-size: 1em;
+  padding: 0.25rem;
   border: none;
-  box-shadow: 0 2px 4px 4px rgba(0, 0, 0, 0.25);
-  padding: 1rem;
-  font-size: 1.1em;
+  border-bottom: 2px solid black;
 }
 #comment:focus {
   outline: none;
 }
 
 .btn {
-  margin: 1rem 0 1rem auto;
-  display: block;
+  margin: 0 0 0 auto;
+  display: inline;
   height: 50px;
   width: 80px;
   font-weight: bold;
-  border-radius: 10px;
+  background: #ddd;
   border: none;
-  box-shadow: 0 2px 4px 4px rgba(0, 0, 0, 0.25);
+  border-bottom: 2px solid black;
 }
 .btn:hover {
-  background: #ddd;
+  background: #bbb;
+  cursor: pointer;
 }
-
 .container {
   margin: 2rem auto 0.5rem auto;
-  width: 70%;
+  width: 100%;
   max-width: 40rem;
+}
+form {
+  display: flex;
+}
+input:invalid {
+  box-shadow: none;
+}
+input:focus::placeholder {
+  font-size: 1.1rem;
 }
 </style>

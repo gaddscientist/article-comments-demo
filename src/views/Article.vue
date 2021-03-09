@@ -62,7 +62,7 @@ export default {
   width: 90%;
   max-width: 50rem;
   background: white;
-  box-shadow: 0 2px 8px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 8px 2px rgba(0, 0, 0, 0.4);
 }
 .title {
   margin-bottom: 1rem;

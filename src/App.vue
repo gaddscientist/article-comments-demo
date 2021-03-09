@@ -24,7 +24,7 @@ html {
 }
 
 body {
-  background: #bbb;
+  /* background: #bbb; */
 }
 
 a {
