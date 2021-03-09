@@ -4,8 +4,9 @@
       <input
         type="text"
         id="comment"
-        placeholder="Post a comment!"
+        :placeholder="placeholderText"
         v-model="commentBody"
+        :disabled="!isLoggedIn"
         required
       />
       <button class="btn" v-if="isLoggedIn">Submit</button>
@@ -30,6 +31,9 @@ export default {
     },
     isLoggedIn() {
       return this.$store.getters['isLoggedIn'];
+    },
+    placeholderText() {
+      return this.isLoggedIn ? 'Post a comment!' : 'Sign in to post a comment';
     },
   },
   methods: {
@@ -60,6 +64,7 @@ export default {
   padding: 0.25rem;
   border: none;
   border-bottom: 2px solid black;
+  color: #888;
 }
 #comment:focus {
   outline: none;

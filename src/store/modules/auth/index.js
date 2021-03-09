@@ -14,10 +14,16 @@ export default {
       // If called without a username, user is logging out
       payload.username ? (state.loggedIn = true) : (state.loggedIn = false);
     },
+    setError(state, payload) {
+      state.error = payload;
+    },
   },
   actions: {
     clearUsername(context) {
       context.commit('setUsername', { username: '' });
+    },
+    clearError(context) {
+      context.commit('setError', null);
     },
     async login(context, payload) {
       const result = await fetch('http://localhost:5000/login', {
@@ -66,6 +72,9 @@ export default {
     },
     getUser(state) {
       return state.username;
+    },
+    getError(state) {
+      return state.error;
     },
   },
 };

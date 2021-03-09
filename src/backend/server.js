@@ -28,17 +28,22 @@ app.post('/login', async (req, res) => {
   // Get user data from DB
   let user = await db.getUser(username);
   // Query returns an array of objects and this gets the first(only) one
-  user.length !== 1 ? (message = 'ERROR: User not found') : (user = user[0]);
+  if (user.length !== 1) {
+    message = 'User not found!';
+    return res.json(message);
+  } else {
+    user = user[0];
+  }
 
   // Validate login info
   try {
     // returns false if password incorrect
     (await bcrypt.compare(req.body.password, user.password))
       ? (message = 'Success')
-      : (message = 'Password incorrect');
+      : (message = 'Password incorrect!');
   } catch {
     // Server error
-    return (message = 'Server error');
+    return (message = 'Internal server error');
   } finally {
     return res.json(message);
   }
@@ -56,10 +61,10 @@ app.post('/signup', async (req, res) => {
     if (results.affectedRows === 1) {
       return res.json({ message: 'Success' });
     } else {
-      return res.json({ message: 'ERROR: User not added' });
+      return res.json({ message: 'User not added!' });
     }
   } catch {
-    return res.json({ message: 'Server error' });
+    return res.json({ message: 'Internal server error' });
   }
 });
 

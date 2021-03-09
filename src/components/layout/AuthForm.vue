@@ -3,7 +3,13 @@
     <form @submit.prevent="submitForm">
       <p class="title">{{ title }}</p>
       <div class="input-group">
-        <input type="text" placeholder="Username" required v-model="username" />
+        <input
+          @focus="clearError"
+          type="text"
+          placeholder="Username"
+          required
+          v-model="username"
+        />
       </div>
       <div class="input-group">
         <input
@@ -15,12 +21,14 @@
       </div>
       <div class="input-group" v-if="mode !== 'login'">
         <input
+          @focus="clearError"
           type="password"
           placeholder="Re-enter Password"
           v-model="passwordRE"
           required
         />
       </div>
+      <p @click="clearError" class="error" v-if="error">{{ error }}</p>
       <div class="input-group">
         <button type="submit">{{ buttonCaption }}</button>
       </div>
@@ -60,6 +68,9 @@ export default {
     linkPath() {
       return this.mode === 'login' ? '/signup' : '/login';
     },
+    error() {
+      return this.$store.getters['getError'];
+    },
   },
   methods: {
     async submitForm() {
@@ -87,6 +98,9 @@ export default {
         this.$router.replace('/');
       }
     },
+    clearError() {
+      this.$store.dispatch('clearError');
+    },
   },
 };
 </script>
@@ -103,6 +117,13 @@ export default {
 .input-group {
   margin: 1rem;
   width: 100%;
+}
+.error {
+  padding: 0.5rem;
+  background: rgb(255, 157, 157);
+  border: 2px solid red;
+  border-radius: 5px;
+  font-weight: bold;
 }
 input {
   width: 100%;
