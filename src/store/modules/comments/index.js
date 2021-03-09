@@ -1,11 +1,10 @@
-// import * as stuff from '../../comments';
-import * as stuff from '../../../../comments.js';
+// import * as stuff from '../../../../comments.js';
 
 export default {
   state() {
     return {
-      // comments: [],
-      comments: stuff.default,
+      comments: [],
+      // comments: stuff.default,
     };
   },
   mutations: {
@@ -38,7 +37,6 @@ export default {
           'Content-Type': 'application/json',
         },
       });
-
       const comments = await commentsJSON.json();
       context.commit('updateComments', comments);
     },

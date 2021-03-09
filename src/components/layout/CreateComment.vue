@@ -8,20 +8,11 @@
         v-model="commentBody"
         required
       />
-      <!-- <textarea
-        id="comment"
-        cols="60"
-        rows="2"
-        maxlength="256"
-        placeholder="Post a comment!"
-        v-model="commentBody"
-        required
-      ></textarea> -->
-      <button class="btn" v-if="!isLoggedIn">Submit</button>
+      <button class="btn" v-if="isLoggedIn">Submit</button>
+      <button class="btn" @click="handleSigninClick" v-if="!isLoggedIn">
+        Sign In
+      </button>
     </form>
-    <button class="btn" @click="handleSigninClick" v-if="isLoggedIn">
-      Sign In
-    </button>
   </div>
 </template>
 
@@ -50,6 +41,7 @@ export default {
         parentId: this.parentId,
       });
       this.$store.dispatch('loadComments');
+      this.$emit('commentPosted');
       this.commentBody = '';
     },
     handleSigninClick() {

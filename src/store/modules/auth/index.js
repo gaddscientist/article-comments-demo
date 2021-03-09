@@ -31,8 +31,7 @@ export default {
         }),
       });
 
-      const parsedResult = await result.json();
-      const msg = parsedResult.message;
+      const msg = await result.json();
       if (msg === 'Success') {
         context.commit('setUsername', { username: payload.username });
       } else {

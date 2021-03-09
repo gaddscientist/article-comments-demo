@@ -1,15 +1,20 @@
 const express = require('express');
 const path = require('path');
 const bcrypt = require('bcrypt');
-const db = require('./blog_db');
 const history = require('connect-history-api-fallback');
+const db = require('./blog_db');
 const app = express();
 
 // Parses incoming request object as a JSON object
 app.use(express.json());
 // Sends Routes all traffic through index.html so vue-router
 // can handle redirecting front end
-app.use(history());
+app.use(
+  history({
+    // Overwrites GET request to /article from being routed through index.html
+    rewrites: [{ from: /\/article/, to: '/article' }],
+  })
+);
 
 /**
  * Authentication Requests
@@ -18,23 +23,24 @@ app.use(history());
 // Handles login requests
 app.post('/login', async (req, res) => {
   const username = req.body.username;
+  let message;
 
   // Get user data from DB
   let user = await db.getUser(username);
   // Query returns an array of objects and this gets the first(only) one
-  user.length !== 1
-    ? res.json({ message: 'ERROR: User not found' })
-    : (user = user[0]);
+  user.length !== 1 ? (message = 'ERROR: User not found') : (user = user[0]);
 
   // Validate login info
   try {
     // returns false if password incorrect
-    return (await bcrypt.compare(req.body.password, user.password))
-      ? res.json({ message: 'Success' })
-      : res.json({ message: 'Password incorrect' });
+    (await bcrypt.compare(req.body.password, user.password))
+      ? (message = 'Success')
+      : (message = 'Password incorrect');
   } catch {
     // Server error
-    return res.json({ message: 'Server error' });
+    return (message = 'Server error');
+  } finally {
+    return res.json(message);
   }
 });
 
@@ -86,6 +92,7 @@ app.post('/article', async (req, res) => {
 // Handles GET request to retrieve all comments
 app.get('/article', async (req, res) => {
   const comments = await db.getRootComments();
+  console.log(comments);
   // fs.writeFileSync('comments.json', JSON.stringify(comments, null, 4));
   res.json(comments);
 });
