@@ -22,6 +22,9 @@ export default {
     clearUsername(context) {
       context.commit('setUsername', { username: '' });
     },
+    setError(context, payload) {
+      context.commit('setError', payload);
+    },
     clearError(context) {
       context.commit('setError', null);
     },

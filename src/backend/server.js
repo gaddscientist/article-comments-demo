@@ -52,6 +52,19 @@ app.post('/login', async (req, res) => {
 // Handles sign up requests
 app.post('/signup', async (req, res) => {
   try {
+    try {
+      // Get user data from DB
+      const dbUser = await db.getUser(req.body.username);
+      if (dbUser.length >= 1) {
+        return res.json({
+          message: 'User already exists, please pick a differnt username',
+        });
+      }
+    } catch (e) {
+      console.log(e.message);
+      return res.json({ message: 'Internal server error' });
+    }
+
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = { username: req.body.username, password: hashedPassword };
 

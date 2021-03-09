@@ -43,7 +43,7 @@ export default {
   },
   getters: {
     getComments(state) {
-      return state.comments.reverse();
+      return state.comments;
     },
     hasComments(state) {
       return state.comments && state.comments.length > 0;

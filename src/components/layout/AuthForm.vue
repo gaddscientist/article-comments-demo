@@ -15,6 +15,7 @@
         <input
           type="password"
           placeholder="Password"
+          minlength="8"
           required
           v-model="password"
         />
@@ -23,6 +24,7 @@
         <input
           @focus="clearError"
           type="password"
+          minlength="8"
           placeholder="Re-enter Password"
           v-model="passwordRE"
           required
@@ -86,7 +88,7 @@ export default {
         await this.$store.dispatch('login', authInfo);
       } else {
         if (this.password !== this.passwordRE) {
-          alert('ERROR: Passwords do not match');
+          this.$store.dispatch('setError', 'ERROR: Passwords do not match');
           return;
         }
         await this.$store.dispatch('signup', authInfo);

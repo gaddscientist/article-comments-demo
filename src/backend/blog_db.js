@@ -49,7 +49,7 @@ async function addComment(
 async function getRootComments() {
   const query = 'SELECT * FROM comments WHERE depth = 0';
   const results = await executeQuery(query);
-  return await populateChildren(results);
+  return (await populateChildren(results)).reverse();
 }
 
 // Recursively builds nested object of parent/child comments
@@ -58,7 +58,7 @@ async function populateChildren(parents) {
     parents.map(async parent => {
       let obj = {
         ...parent,
-        children: await getChildComments(parent.post_id),
+        children: (await getChildComments(parent.post_id)).reverse(),
       };
       if (obj.children !== []) {
         obj.children = await populateChildren(obj.children);
