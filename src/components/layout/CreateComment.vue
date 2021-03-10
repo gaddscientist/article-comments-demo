@@ -85,7 +85,8 @@ export default {
   cursor: pointer;
 }
 .container {
-  margin: 2rem 6rem 0.5rem 6rem;
+  margin: 2rem auto 0.5rem auto;
+  min-width: 17rem;
 }
 form {
   display: flex;

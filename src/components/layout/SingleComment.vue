@@ -62,7 +62,10 @@ export default {
   },
   computed: {
     childStyles() {
-      return { 'max-width': 50 - 6 * this.item.depth + 'rem' };
+      return {
+        width: 50 - 50 * (this.item.depth * 0.1) + 'rem',
+        'max-width': 100 - 10 * this.item.depth + 'vw',
+      };
     },
     timestamp() {
       return new Date(this.item.timestamp).toLocaleString('en-US', {
@@ -90,11 +93,9 @@ a {
   list-style: none;
   margin: 0 0 0 auto;
   padding: 1rem 1rem 1rem 1rem;
-  /* border: 1px solid #aaa; */
 }
 .comment {
-  background: #eee;
-  /* border-radius: 10px; */
+  background: #e9e9e9;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -131,7 +132,7 @@ button {
   height: 2rem;
   width: 4rem;
   border: none;
-  background: #ddd;
+  background: #d7d7d7;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }

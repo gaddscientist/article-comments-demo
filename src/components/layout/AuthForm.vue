@@ -156,12 +156,12 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 25rem;
+  min-width: 20rem;
   border-radius: 10px;
   border: 1px solid #e2e2e2;
   padding: 0 3rem 2rem 3rem;
   background: #f5f5f5;
-  margin-top: 6rem;
+  margin: 6rem 1rem 0 1rem;
 }
 button {
   margin: 0 auto;

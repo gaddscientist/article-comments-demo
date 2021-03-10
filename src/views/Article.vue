@@ -8,18 +8,18 @@
         Apple hasn't publicly acknowledged there's an issue.
       </p>
       <div class="main">
-        <div class="author-info">
-          <p class="section-header"><span>Author: </span> S. Krishna</p>
-          <p class="section-header"><span>Date: </span> 07.10.2020</p>
+        <div class="article-info">
           <img
             class="user-icon"
             src="../assets/user_icon.webp"
             alt="User Image"
           />
+          <p><span>Date: </span> 07/10/2020</p>
+          <p><span>Author: </span> S. Krishna</p>
         </div>
         <div class="article-body">
           <img class="main-image" src="../assets/macbook.webp" alt="macbook" />
-          <p class="paragraph">
+          <p>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit natus
             quasi sequi, obcaecati in deserunt quo ducimus incidunt impedit
             cupiditate? Minus aperiam recusandae nobis exercitationem architecto
@@ -27,7 +27,7 @@
             possimus voluptate itaque praesentium rem repellendus ab nemo illo,
             nihil numquam? Dolorum quo facere tenetur numquam.
           </p>
-          <p class="paragraph">
+          <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius velit
             dolorum aliquam optio voluptates laboriosam officiis voluptate, nisi
             quod pariatur, suscipit facere eligendi labore magnam odio nemo!
@@ -35,7 +35,7 @@
             voluptas nam quos ex, libero, tenetur possimus porro vero nisi sint?
             Inventore, et.
           </p>
-          <p class="paragraph">
+          <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dolor
             labore id illum, perspiciatis velit assumenda molestiae ducimus,
             eaque mollitia optio nam vel odio maiores est amet quos nulla
@@ -76,24 +76,33 @@ export default {
   max-width: 70rem;
 }
 .article-header {
-  margin-bottom: 1rem;
+  margin: 0 0.5rem 1rem 0.5rem;
   font-size: 3rem;
 }
 .article-sub-header {
-  margin-bottom: 1rem;
+  margin: 0 0.5rem 1rem 0.5rem;
   font-size: 1.3rem;
 }
 .main {
   display: flex;
   border-top: 1px solid black;
 }
-.author-info {
-  padding: 1rem;
+.article-info {
   margin: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.article-info p {
+  font-size: 16px;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.article-info span {
+  font-weight: bold;
 }
 .user-icon {
   border-radius: 50%;
-  margin: 0 1rem;
+  margin: 1rem auto;
   height: 96px;
   width: 96px;
 }
@@ -111,14 +120,7 @@ export default {
   object-fit: contain;
   margin-bottom: 1rem;
 }
-.section-header {
-  margin: 0.25rem;
-  font-size: 12px;
-}
-.section-header span {
-  font-weight: bold;
-}
-.paragraph {
+.article-body p {
   margin: 2rem 0;
 }
 </style>
