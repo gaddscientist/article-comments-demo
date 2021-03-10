@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Article from '../views/Article.vue';
 import Auth from '../views/Auth.vue';
+import NotFound from '../views/NotFound.vue';
 
 const routes = [
   {
@@ -23,6 +24,7 @@ const routes = [
     name: 'Signup',
     component: Auth,
   },
+  { path: '/:notFound(.*)', component: NotFound },
 ];
 
 const router = createRouter({
