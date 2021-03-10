@@ -1,8 +1,8 @@
 export default {
   state() {
     return {
-      loggedIn: false,
-      username: '',
+      loggedIn: sessionStorage.getItem('loggedIn') || false,
+      username: sessionStorage.getItem('username') || false,
       error: null,
     };
   },
@@ -10,9 +10,17 @@ export default {
     setUsername(state, payload) {
       // Clears username if one is not specified
       state.username = payload.username;
+      sessionStorage.setItem('username', payload.username);
 
       // If called without a username, user is logging out
-      payload.username ? (state.loggedIn = true) : (state.loggedIn = false);
+      if (payload.username) {
+        state.loggedIn = true;
+        sessionStorage.setItem('loggedIn', true);
+      } else {
+        state.loggedIn = false;
+        sessionStorage.removeItem('loggedIn');
+        sessionStorage.removeItem('username');
+      }
     },
     setError(state, payload) {
       state.error = payload;
