@@ -85,12 +85,11 @@ export default {
   cursor: pointer;
 }
 .container {
-  margin: 2rem auto 0.5rem auto;
-  width: 100%;
-  max-width: 40rem;
+  margin: 2rem 6rem 0.5rem 6rem;
 }
 form {
   display: flex;
+  width: 100%;
 }
 input:invalid {
   box-shadow: none;
