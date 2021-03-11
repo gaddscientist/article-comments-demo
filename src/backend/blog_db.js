@@ -12,7 +12,7 @@ connection.connect(function(err, columns) {
   }
 });
 
-const executeQuery = (query, data = null) => {
+function executeQuery(query, data = null) {
   return new Promise((resolve, reject) => {
     connection.query(query, data, function(error, results, fields) {
       if (error) {
@@ -22,7 +22,7 @@ const executeQuery = (query, data = null) => {
       }
     });
   });
-};
+}
 
 /* --------------
  * Comments Table
@@ -36,9 +36,18 @@ async function addComment(
   depth,
   parentId = null
 ) {
-  const query = `INSERT INTO comments VALUES ( NULL, STR_TO_DATE('${timestamp}', '%m/%d/%Y %h:%i %p'), '${username}', '${commentBody}', ${depth}, ${
-    parentId ? parentId : 'NULL'
-  } )`;
+  const query =
+    'INSERT INTO comments VALUES ( NULL, STR_TO_DATE(' +
+    connection.escape(timestamp) +
+    ", '%m/%d/%Y %h:%i %p'), " +
+    connection.escape(username) +
+    ', ' +
+    connection.escape(commentBody) +
+    ', ' +
+    connection.escape(depth) +
+    ', ' +
+    (parentId ? connection.escape(parentId) : 'NULL') +
+    ' );';
 
   const data = [timestamp, username, commentBody, depth, parentId];
   const result = await executeQuery(query, data);
@@ -71,8 +80,9 @@ async function populateChildren(parents) {
 
 // Gets the child comments for a given single comment
 async function getChildComments(parentId) {
-  const query = `SELECT * FROM comments WHERE parent_id = ${parentId}`;
-  return await executeQuery(query);
+  const data = [parentId];
+  const query = 'SELECT * FROM comments WHERE parent_id = ?';
+  return await executeQuery(query, data);
 }
 
 /* --------------
@@ -80,8 +90,9 @@ async function getChildComments(parentId) {
  * -------------- */
 
 async function getUser(username) {
-  const query = `SELECT * from users WHERE username = '${username}'`;
-  return await executeQuery(query);
+  const data = [username];
+  const query = 'SELECT * from users WHERE username = ?';
+  return await executeQuery(query, data);
 }
 
 async function addNewUser(user) {
