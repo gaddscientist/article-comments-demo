@@ -2,9 +2,11 @@ const express = require('express');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const history = require('connect-history-api-fallback');
+const cors = require('cors');
 const db = require('./blog_db');
 const app = express();
 
+app.use(cors());
 // Parses incoming request object as a JSON object
 app.use(express.json());
 // Sends Routes all traffic through index.html so vue-router
@@ -86,7 +88,7 @@ app.post('/signup', async (req, res) => {
  */
 
 // Handles POST requests to add a comment
-app.post('/article', async (req, res) => {
+app.post('/article', cors(), async (req, res) => {
   // Gets chosen criteria into local variable
   const uname = req.body.uname,
     commentBody = req.body.commentBody,
@@ -122,6 +124,6 @@ const rootDir = path.join(__dirname, '..', '..', '/dist/');
 app.use(express.static(path.join(rootDir)));
 
 // Listen for any incoming requests
-app.listen(5000);
+app.listen(5000, '192.168.1.224');
 
 console.log('Node.js web server at port 5000 is running...');

@@ -1,10 +1,10 @@
-import * as stuff from '../../../../comments.js';
+// import * as stuff from '../../../../comments.js';
 
 export default {
   state() {
     return {
-      // comments: [],
-      comments: stuff.default,
+      comments: [],
+      // comments: stuff.default,
     };
   },
   mutations: {
