@@ -1,22 +1,27 @@
 <template>
   <div>
+    <auth-modal :show="showSignIn" mode="login" @close="close"></auth-modal>
     <ul v-if="hasComments">
       <single-comment
         v-for="comment in comments"
         :key="comment.id"
         :item="comment"
         @postComment="getComments"
+        @signin="handleSignIn"
       />
     </ul>
   </div>
 </template>
 
 <script>
-import SingleComment from '../layout/SingleComment.vue';
+import SingleComment from './SingleComment.vue';
+import AuthModal from './AuthModal.vue';
 export default {
   components: {
     SingleComment,
+    AuthModal,
   },
+  props: ['showSignIn'],
   created() {
     this.getComments();
   },
@@ -40,6 +45,12 @@ export default {
       } catch (err) {
         console.log('ERROR: Comments not retrieved: ' + err.message);
       }
+    },
+    handleSignIn() {
+      this.$emit('signin');
+    },
+    close() {
+      this.$emit('close');
     },
   },
 };

@@ -25,6 +25,7 @@
         :depth="item.depth"
         :parentId="item.post_id"
         @commentPosted="showReply = false"
+        @signin="emitSignin"
       />
     </div>
   </li>
@@ -37,6 +38,7 @@
           :key="item.post_id"
           :item="item"
           :visible="isVisible"
+          @signin="emitSignin"
         />
       </template>
     </div>
@@ -54,6 +56,7 @@ export default {
   },
   name: 'SingleComment',
   props: ['item'],
+  emits: ['signin'],
   data() {
     return {
       isVisible: true,
@@ -80,6 +83,9 @@ export default {
   methods: {
     toggleReply() {
       this.showReply = !this.showReply;
+    },
+    emitSignin() {
+      this.$emit('signin');
     },
   },
 };

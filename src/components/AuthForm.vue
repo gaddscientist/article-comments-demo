@@ -97,6 +97,7 @@ export default {
       this.isLoading = false;
 
       if (this.$store.getters['isLoggedIn']) {
+        this.$emit('close');
         this.$router.replace('/');
       }
     },
@@ -111,7 +112,6 @@ export default {
 .container {
   display: flex;
   width: 100%;
-  height: 100vh;
   justify-content: center;
   align-items: flex-start;
   background: #fff;
@@ -161,7 +161,7 @@ form {
   border: 1px solid #e2e2e2;
   padding: 0 3rem 2rem 3rem;
   background: #f5f5f5;
-  margin: 6rem 1rem 0 1rem;
+  margin: 0 1rem;
 }
 button {
   margin: 0 auto;

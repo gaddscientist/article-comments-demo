@@ -1,9 +1,11 @@
 <template>
-  <auth-form :mode="mode" />
+  <div>
+    <auth-form :mode="mode" />
+  </div>
 </template>
 
 <script>
-import AuthForm from '../components/layout/AuthForm.vue';
+import AuthForm from '../components/AuthForm.vue';
 
 export default {
   components: {
@@ -16,3 +18,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+div {
+  margin-top: 6rem;
+}
+</style>

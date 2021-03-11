@@ -46,20 +46,29 @@
           </p>
         </div>
       </div>
-      <create-comment depth="-1" />
-      <the-comments />
+      <create-comment depth="-1" @signin="showSignIn = true" />
+      <the-comments
+        @close="showSignIn = false"
+        @signin="showSignIn = true"
+        :showSignIn="showSignIn"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import CreateComment from '../components/layout/CreateComment.vue';
-import TheComments from '../components/layout/TheComments.vue';
+import CreateComment from '../components/CreateComment.vue';
+import TheComments from '../components/TheComments.vue';
 
 export default {
   components: {
     CreateComment,
     TheComments,
+  },
+  data() {
+    return {
+      showSignIn: false,
+    };
   },
 };
 </script>
@@ -67,7 +76,7 @@ export default {
 <style scoped>
 .container {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 .content {
@@ -110,7 +119,7 @@ export default {
   margin: 2rem auto 2rem 0;
   padding: 0 1rem;
   width: 90%;
-  max-width: 675px;
+  max-width: 50rem;
   background: white;
   line-height: 1.5;
 }

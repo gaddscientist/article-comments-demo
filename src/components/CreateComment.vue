@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="main-create">
     <form @submit.prevent="postComment">
       <input
         type="text"
@@ -10,16 +10,17 @@
         required
       />
       <button class="btn" v-if="isLoggedIn">Submit</button>
-      <button class="btn" @click="handleSigninClick" v-if="!isLoggedIn">
-        Sign In
-      </button>
     </form>
+    <button class="btn" @click="handleSigninClick" v-if="!isLoggedIn">
+      Sign In
+    </button>
   </div>
 </template>
 
 <script>
 export default {
   props: ['depth', 'parentId'],
+  emits: ['signin', 'commentPosted'],
   data() {
     return {
       commentBody: '',
@@ -49,7 +50,8 @@ export default {
       this.commentBody = '';
     },
     handleSigninClick() {
-      this.$router.push('/login');
+      // this.$router.push('/login');
+      this.$emit('signin');
     },
   },
 };
@@ -84,9 +86,12 @@ export default {
   background: #bbb;
   cursor: pointer;
 }
-.container {
+.main-create {
   margin: 2rem auto 0.5rem auto;
   min-width: 17rem;
+  max-width: 60rem;
+  display: flex;
+  align-items: flex-end;
 }
 form {
   display: flex;
