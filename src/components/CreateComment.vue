@@ -66,7 +66,7 @@ export default {
   padding: 0.25rem;
   border: none;
   border-bottom: 2px solid black;
-  color: #888;
+  /* color: #888; */
 }
 #comment:focus {
   outline: none;
@@ -96,6 +96,9 @@ export default {
 form {
   display: flex;
   width: 100%;
+}
+input {
+  color: black;
 }
 input:invalid {
   box-shadow: none;

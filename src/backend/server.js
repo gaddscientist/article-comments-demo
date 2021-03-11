@@ -112,8 +112,6 @@ app.post('/article', cors(), async (req, res) => {
 // Handles GET request to retrieve all comments
 app.get('/article', async (req, res) => {
   const comments = await db.getRootComments();
-  console.log(comments);
-  // fs.writeFileSync('comments.json', JSON.stringify(comments, null, 4));
   res.json(comments);
 });
 
@@ -124,6 +122,6 @@ const rootDir = path.join(__dirname, '..', '..', '/dist/');
 app.use(express.static(path.join(rootDir)));
 
 // Listen for any incoming requests
-app.listen(5000, '192.168.1.224');
+app.listen(5000);
 
 console.log('Node.js web server at port 5000 is running...');

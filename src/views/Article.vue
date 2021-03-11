@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" tabindex="0" @keydown.esc="showSignIn = false">
     <div class="content">
       <h1 class="article-header">
         MacBook Pro document confirms 'anti-debris' keyboard redesign
